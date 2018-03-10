@@ -44,6 +44,9 @@ module.exports = {
   },
 
   formatFailResp({errCode, respErrorDetails, msg, status}) {
+    if (status && !errCode) {
+      errCode = 'F' + status;
+    }
 
     errCode = errCode || 'F500';
     respErrorDetails = this.app.config.normalResponse.respErrorDetails ? respErrorDetails : undefined;
