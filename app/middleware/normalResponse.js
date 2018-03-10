@@ -5,11 +5,11 @@
 'use strict';
 
 module.exports = () => {
-  return function* (next) {
+  return async function (next) {
     const { logger } = this;
 
     try {
-      yield next;
+      await next();
     } catch (err) {
 
       this.formatFailResp({errCode: 'F500'});
