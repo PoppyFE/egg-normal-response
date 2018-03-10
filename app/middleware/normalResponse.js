@@ -25,7 +25,7 @@ module.exports = () => {
     }
 
     // 不要修改! 这里可能 body 为空字符, 所以只做未设值判断
-    if (this.body === undefined) {
+    if (ctx.body === undefined) {
       ctx.formatFailResp({errCode: 'F404'});
       logger.error('Error: 404 NOT FOUND');
     }
