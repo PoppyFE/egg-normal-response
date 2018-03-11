@@ -28,7 +28,7 @@ module.exports = {
     return respCodeItem.status;
   },
 
-  formatSuccessResp({data, msg, status}) {
+  formatSuccessResp({data, msg, status} = {}) {
     const respCode = SUCCESS_RESPCODE;
     const respMessage = msg || this.findRespMessage(respCode) || '成功';
 
