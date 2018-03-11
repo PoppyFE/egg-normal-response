@@ -15,7 +15,7 @@ module.exports = () => {
       ctx.formatFailResp({errCode: 'F500'});
 
       if (ctx.app.config.normalResponse.respErrorDetails) {
-        this.body.respErrorDetails = err.message + '\n' + err.stack;
+        ctx.body.respErrorDetails = err.message + '\n' + err.stack;
       }
       // 注意：自定义的错误统一处理函数捕捉到错误后也要 `app.emit('error', err, this)`
       // 框架会统一监听，并打印对应的错误日志
