@@ -64,6 +64,32 @@ module.exports = {
     }
   },
 
+  formatFailRespWithError(err) {
+    if (err instanceof  Error) {
+      const response = {};
+      if (err.hasOwnProperty('errCode')) {
+        response.errCode = err.errCode;
+      }
+
+      response.msg = err.message || '';
+
+      if (err.hasOwnProperty('respErrorDetails')) {
+        response.respErrorDetails = err.respErrorDetails;
+      }
+
+      if (err.hasOwnProperty('status')) {
+        response.status = err.status;
+      }
+
+      this.formatFailResp(response);
+    } else {
+      this.formatFailResp({
+        errCode: 'F500',
+        msg: '未知异常'
+      });
+    }
+  },
+
   isSuccessResp() {
     return this.body && this.body.respCode === SUCCESS_RESPCODE;
   },
