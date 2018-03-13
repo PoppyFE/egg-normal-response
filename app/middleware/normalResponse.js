@@ -14,7 +14,12 @@ module.exports = () => {
 
       ctx.formatFailRespWithError(err);
 
-      if (ctx.app.config.normalResponse.respErrorDetails) {
+      // 这个是个业务cover的错误.
+      if (err.hasOwnProperty('errCode')) {
+        return;
+      }
+
+      if (ctx.app.config.normalResponse.respErrorDetails && !ctx.body.respErrorDetails) {
         ctx.body.respErrorDetails = err.message + '\n' + err.stack;
       }
       // 注意：自定义的错误统一处理函数捕捉到错误后也要 `app.emit('error', err, this)`
