@@ -12,7 +12,7 @@ module.exports = () => {
       await next();
     } catch (err) {
 
-      ctx.formatFailResp({errCode: 'F500'});
+      ctx.formatFailRespWithError(err);
 
       if (ctx.app.config.normalResponse.respErrorDetails) {
         ctx.body.respErrorDetails = err.message + '\n' + err.stack;
