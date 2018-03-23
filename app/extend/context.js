@@ -50,14 +50,22 @@ module.exports = {
 
     errCode = errCode || 'F500';
     respErrorDetails = this.app.config.normalResponse.respErrorDetails ? respErrorDetails : undefined;
-    const respMessage = msg || this.findRespMessage(errCode) || '服务异常';
+    let respMessage = msg || this.findRespMessage(errCode) || '服务异常';
+    status = status || this.findRespStatus(errCode) || 500;// 默认
+
+    if (typeof this.app.config.normalResponse.formatFailRespHook === "function") {
+      const result = this.app.config.normalResponse.formatFailRespHook({errCode, respErrorDetails, msg, status});
+      errCode = result.errCode;
+      respMessage = result.respMessage;
+      respErrorDetails = result.respErrorDetails;
+      status = result.status;
+    }
+
     this.body = {
       respCode: errCode,
       respMessage,
       respErrorDetails,
     };
-
-    status = status || this.findRespStatus(errCode) || 500;// 默认
 
     if (status) {
       this.status = status;
