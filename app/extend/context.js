@@ -54,7 +54,7 @@ module.exports = {
     status = status || this.findRespStatus(errCode) || 500;// 默认
 
     if (typeof this.app.config.normalResponse.formatFailRespHook === "function") {
-      const result = this.app.config.normalResponse.formatFailRespHook({errCode, respErrorDetails, msg, status});
+      const result = this.app.config.normalResponse.formatFailRespHook({errCode, respErrorDetails, respMessage:msg, status});
       errCode = result.errCode;
       respMessage = result.respMessage;
       respErrorDetails = result.respErrorDetails;
