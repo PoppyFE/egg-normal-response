@@ -75,6 +75,18 @@ module.exports = {
   formatFailRespWithError(err) {
     if (err instanceof  Error) {
       const response = {};
+      if (err.name === 'ConnectionTimeoutError') {
+        this.formatFailResp({
+          errCode: 'F408',
+        });
+        return;
+      } else if (err.message.includes('ECONNREFUSED')) {
+        this.formatFailResp({
+          errCode: 'F424',
+        });
+        return;
+      }
+
       if (err.hasOwnProperty('errCode')) {
         response.errCode = err.errCode;
       }

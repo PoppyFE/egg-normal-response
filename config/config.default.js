@@ -32,6 +32,16 @@ const CODES = {
     message: '资源不存在'
   },
 
+  F408: {
+    status: 408,
+    message: '系统响应超时，请稍后尝试'
+  },
+
+  F424: {
+    status: 424,
+    message: '系统繁忙，请稍后尝试'
+  },
+
   F429: {
     status: 429,
     message: '频繁请求，请稍后尝试'
