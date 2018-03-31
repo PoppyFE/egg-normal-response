@@ -22,6 +22,11 @@ const CODES = {
     message: '未授权'
   },
 
+  'F401-1': {
+    status: 401,
+    message: '未授权'
+  },
+
   F403: {
     status: 403,
     message: '禁止访问'

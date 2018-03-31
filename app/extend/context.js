@@ -74,40 +74,40 @@ module.exports = {
 
   formatFailRespWithError(err) {
     if (err instanceof  Error) {
-      const response = {};
+
       if (err.name === 'ConnectionTimeoutError') {
         this.formatFailResp({
           errCode: 'F408',
         });
         return;
-      } else if (err.message.includes('ECONNREFUSED')) {
-        this.formatFailResp({
-          errCode: 'F424',
-        });
+      }
+
+      const response = {};
+
+      // normal logic error.
+      if (err.normalResponse) {
+        if (err.hasOwnProperty('errCode')) {
+          response.errCode = err.errCode;
+        }
+
+        response.msg = err.message || '';
+
+        if (err.hasOwnProperty('respErrorDetails')) {
+          response.respErrorDetails = err.respErrorDetails;
+        }
+
+        if (err.hasOwnProperty('status')) {
+          response.status = err.status;
+        }
+
+        this.formatFailResp(response);
         return;
       }
-
-      if (err.hasOwnProperty('errCode')) {
-        response.errCode = err.errCode;
-      }
-
-      response.msg = err.message || '';
-
-      if (err.hasOwnProperty('respErrorDetails')) {
-        response.respErrorDetails = err.respErrorDetails;
-      }
-
-      if (err.hasOwnProperty('status')) {
-        response.status = err.status;
-      }
-
-      this.formatFailResp(response);
-    } else {
-      this.formatFailResp({
-        errCode: 'F500',
-        msg: '未知异常'
-      });
     }
+
+    this.formatFailResp({
+      errCode: 'F424'
+    });
   },
 
   isSuccessResp() {
