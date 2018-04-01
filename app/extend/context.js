@@ -82,6 +82,13 @@ module.exports = {
         return;
       }
 
+      if (err.name === 'PayloadTooLargeError') {
+        this.formatFailResp({
+          errCode: 'F413',
+        });
+        return;
+      }
+
       const response = {};
 
       // normal logic error.

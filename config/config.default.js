@@ -42,6 +42,11 @@ const CODES = {
     message: '系统响应超时，请稍后尝试'
   },
 
+  F413: {
+    status: 413,
+    message: '请求的内容过大，请修改后尝试'
+  },
+
   F424: {
     status: 424,
     message: '系统繁忙，请稍后尝试'
