@@ -59,7 +59,7 @@ const CODES = {
 
   F500: {
     status: 500,
-    message: '服务异常'
+    message: '系统繁忙，请稍后尝试'
   }
 };
 

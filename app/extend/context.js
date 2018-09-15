@@ -43,6 +43,11 @@ module.exports = {
     }
   },
 
+  throwError(err) {
+    err.normalResponse = true;
+    throw err;
+  },
+
   formatFailResp({errCode, respErrorDetails, msg, status}) {
     if (status && !errCode) {
       errCode = 'F' + status;
@@ -89,14 +94,11 @@ module.exports = {
         return;
       }
 
-      const response = {};
-
       // normal logic error.
       if (err.normalResponse) {
-        if (err.hasOwnProperty('errCode')) {
-          response.errCode = err.errCode;
-        }
+        const response = {};
 
+        response.errCode = err.hasOwnProperty('errCode') ? err.errCode : 'F500';
         response.msg = err.message || '';
 
         if (err.hasOwnProperty('respErrorDetails')) {
@@ -113,7 +115,7 @@ module.exports = {
     }
 
     this.formatFailResp({
-      errCode: 'F424'
+      errCode: 'F500'
     });
   },
 
