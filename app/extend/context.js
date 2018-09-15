@@ -44,6 +44,9 @@ module.exports = {
   },
 
   throwError(err) {
+    if (!err.hasOwnProperty('errCode')) {
+      err.errCode = 'F500';
+    }
     err.normalResponse = true;
     throw err;
   },
