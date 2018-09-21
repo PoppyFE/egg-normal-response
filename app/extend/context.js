@@ -114,7 +114,8 @@ module.exports = {
 
         this.formatFailResp(response);
 
-        this.info(`业务错误: Message: ${response.msg}`);
+        this.logger.info(`业务错误: Message: ${response.msg}`);
+
         return;
       }
     }
