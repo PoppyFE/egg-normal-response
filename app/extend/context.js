@@ -44,6 +44,10 @@ module.exports = {
   },
 
   throwError(err) {
+    if (typeof err === 'string') {
+      err = new Error(err);
+    }
+
     if (!err.hasOwnProperty('errCode')) {
       err.errCode = 'F500';
     }
