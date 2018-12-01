@@ -43,14 +43,19 @@ module.exports = {
     }
   },
 
-  throwError(err) {
+  throwError(err, errorCode) {
     if (typeof err === 'string') {
       err = new Error(err);
+    }
+
+    if (errorCode) {
+      err.errCode = errorCode;
     }
 
     if (!err.hasOwnProperty('errCode')) {
       err.errCode = 'F500';
     }
+
     err.normalResponse = true;
     throw err;
   },
